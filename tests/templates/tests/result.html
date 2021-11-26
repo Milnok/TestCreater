@@ -1,0 +1,35 @@
+{% extends 'base_framework/base.html' %}
+
+{% block content %}
+<br><br>
+<div align="center">
+    {% if awful %}
+    <div class="alert alert-danger" role="alert">
+        <h1> Ты не ответил правильно ни на один вопрос, у тебя {{ persent_correct }}% правильных ответов</h1>
+        {% endif %}
+        {% if bad %}
+        <div class="alert alert-warning" role="alert">
+            <h1> Не самый худший результат, но все же, ты ответил на {{ persent_correct }}% вопросов</h1>
+            {% endif %}
+            {% if ok %}
+            <div class="alert alert-info" role="alert">
+                <h1> Ты ответил на часть вопросов правильно, на часть не правильно ответив на {{ persent_correct }}%
+                    вопросов</h1>
+                {% endif %}
+                {% if good %}
+                <div class="alert alert-primary" role="alert">
+                    <h1> Ты почти идеально прошел тест, ответив на {{ persent_correct }}% вопросов</h1>
+                    {% endif %}
+                    {% if great %}
+                    <div class="alert alert-success" role="alert">
+                        <h1> Ты идеально прошел тест, ответив правильно на {{ persent_correct }}% вопросов,
+                            поздравляю!</h1>
+                        {% endif %}
+                        <form action="{% url 'tests:starttest' test_pk=test.id %}" method="POST">{% csrf_token %}
+                            <button class="btn btn-primary btn-lg" type="submit" name="submit">Пройти тест заного
+                            </button>
+                        </form>
+                    </div
+                </div>
+
+                {% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base_framework/base.html' %}
+
+{% block content %}
+{% csrf_token %}
+<form action="{% url 'tests:viewtest' test.id %}" method="POST">{% csrf_token %}
+    <div align="center">
+        <h1>{{ test.title }}</h1>
+        <button class="btn btn-primary btn-lg" type="submit" name="submit" value="QChoice">Вопрос с выбором ответов из
+            четырех
+        </button>
+        <br><br>
+        <button class="btn btn-primary btn-lg" type="submit" name="submit" value="QOpen">Вопрос с открытым ответом
+        </button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="alert alert-primary" role="alert" align="center">
+            <form method="POST" action="{% url 'tests:createquestion' test.id %}">{% csrf_token %}
+                <h5>Вопрос: {{ question_form.question }}</h5>
+                {% if question_form.answer1 %}
+                <h5>Ответ 1: {{ question_form.answer1 }}</h5><h5> Ответ 2: {{ question_form.answer2 }}</h5>
+                <h5> Ответ 3: {{ question_form.answer3 }}</h5><h5> Ответ 4: {{ question_form.answer4 }}</h5>
+                {% endif %}
+                <h5>Правильный ответ: {{ question_form.correct_answer }}</h5>
+                <button class="btn btn-primary btn-lg" type="submit" name="submit" value="QCreate">Создать вопрос
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row">
+            <div class="col-10">
+                <div class="alert alert-danger" role="alert" align="center">
+                    <form action="{% url 'tests:deletetest' test.id %}" method="POST">{% csrf_token %}
+                        <br>
+                        <button class="btn btn-danger btn-lg" type="submit" name="submit" value="TDelete">Удалить тест
+                        </button>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% for question in all_questions %}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="alert alert-info" role="alert" align="center">
+            <form method="POST" action="{% url 'tests:deletequestion' test.id question.id%}">{% csrf_token %}
+                <h5>Вопрос: {{ question.question }}</h5>
+                {% if question.answer1 %}
+                <h5>Ответ 1: {{ question.answer1 }} Ответ 2: {{ question.answer2 }}
+                    Ответ 3: {{ question.answer2 }} Ответ 4: {{ question.answer4 }}</h5>
+                {% endif %}
+                <h5>Правильный ответ: {{ question.correct_answer }}</h5>
+                <button class="btn btn-primary btn-danger" type="submit" name="submit" value="QDelete">Удалить вопрос
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+{% endfor %}
+
+
+{% endblock %}

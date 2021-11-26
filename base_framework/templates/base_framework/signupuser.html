@@ -1,0 +1,23 @@
+{% extends 'base_framework/base.html' %}
+
+{% block content %}
+
+<head>
+    <h1>Title</h1>
+</head>
+<body>
+
+<form method="POST">
+            {% csrf_token %}
+            <div align="left">
+                {{ Form }}
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Login</button>
+        </form>
+{{ error }}
+
+
+</body>
+</html>
+
+{% endblock %}

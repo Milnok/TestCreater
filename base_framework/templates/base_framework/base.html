@@ -1,0 +1,56 @@
+<head>
+    <link rel="stylesheet" href=
+            "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src=
+                    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src=
+                    "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+    </script>
+    <script src=
+                    "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
+    </script>
+</head>
+{% csrf_token %}
+
+{% if user.is_authenticated %}
+
+<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #BFBFBF;">
+    <div class="container-fluid">
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <a class="nav-link" href="{% url 'tests:' %}">Все тесты</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{% url 'tests:create_test' %}">Создать тест</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{% url 'tests:my_tests' %}">Мои тесты</a>
+            </li>
+            <li>
+                <a class="nav-link">{{ user.username }}</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{% url 'logoutuser' %}">Выход</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+{% else %}
+
+<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #BFBFBF;">
+    <div class="container-fluid">
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <a class="nav-link" href="{% url 'loginuser' %}">Войти</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{% url 'signupuser' %}">Зарегестрироваться</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endif %}
+
+{% block content %}{% endblock %}

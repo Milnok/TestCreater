@@ -1,0 +1,23 @@
+{% extends 'base_framework/base.html' %}
+
+{% block content %}
+
+<h1 align="center">Список всех тестов</h1>
+{% for test in tests %}
+<div class="container">
+    <div class="col-sm-12">
+        <div class="alert alert-secondary" role="alert">
+            <a href="{% url 'tests:starttest' test_pk=test.id %}">
+                <h4 align="center">{{ test }}</h4>
+            </a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<br><br><br><br>
+<div align='center'>
+    <a href="{% url 'tests:loadmore' pages=current_page %}">
+        <h5>Загрузить еще тесты</h5>
+    </a>
+</div>
+{% endblock %}
